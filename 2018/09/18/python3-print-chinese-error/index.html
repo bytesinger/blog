@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="python,编码," />
+  <meta name="keywords" content="python3,中文,报错," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="背景 python 的编码是一个坑, 并且２.x 和３.x还不一样，总结一下，先看看平时代码中遇到的四种情况:  情况一 1234# -*- coding: utf-8 -*-s = &amp;apos;我的&amp;apos;print(s)print(type(s))　#　python2.7: &amp;lt;type &amp;apos;str&amp;apos;&amp;gt; ,python3.5:&amp;lt;class &amp;apos;s">
-<meta name="keywords" content="python,编码">
+<meta name="description" content="python print(“中文”)直接抛出异常处理 问题现象　 在redhat7,Docker镜像中安装python3环境1&amp;gt;&amp;gt;&amp;gt; print(&amp;quot;中文&amp;quot;) 直接异常，最开始没有时间去解决，我去掉了项目中的所有print语句．这是个偷懒的做法，哈哈． 问题原因分析直接locale，查看编码，zh_CN.utf-8，没有问题1234567891011121314">
+<meta name="keywords" content="python3,中文,报错">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python编码问题总结">
-<meta property="og:url" content="https://zhoujunpeng1988.github.io/blog/2018/01/24/python-coding/index.html">
+<meta property="og:title" content="python3 print(&quot;中文&quot;)异常">
+<meta property="og:url" content="https://zhoujunpeng1988.github.io/blog/2018/09/18/python3-print-chinese-error/index.html">
 <meta property="og:site_name" content="Jason Zhou&#39;s Blog">
-<meta property="og:description" content="背景 python 的编码是一个坑, 并且２.x 和３.x还不一样，总结一下，先看看平时代码中遇到的四种情况:  情况一 1234# -*- coding: utf-8 -*-s = &amp;apos;我的&amp;apos;print(s)print(type(s))　#　python2.7: &amp;lt;type &amp;apos;str&amp;apos;&amp;gt; ,python3.5:&amp;lt;class &amp;apos;s">
+<meta property="og:description" content="python print(“中文”)直接抛出异常处理 问题现象　 在redhat7,Docker镜像中安装python3环境1&amp;gt;&amp;gt;&amp;gt; print(&amp;quot;中文&amp;quot;) 直接异常，最开始没有时间去解决，我去掉了项目中的所有print语句．这是个偷懒的做法，哈哈． 问题原因分析直接locale，查看编码，zh_CN.utf-8，没有问题1234567891011121314">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-24T09:02:15.900Z">
+<meta property="og:updated_time" content="2018-11-20T13:56:08.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python编码问题总结">
-<meta name="twitter:description" content="背景 python 的编码是一个坑, 并且２.x 和３.x还不一样，总结一下，先看看平时代码中遇到的四种情况:  情况一 1234# -*- coding: utf-8 -*-s = &amp;apos;我的&amp;apos;print(s)print(type(s))　#　python2.7: &amp;lt;type &amp;apos;str&amp;apos;&amp;gt; ,python3.5:&amp;lt;class &amp;apos;s">
+<meta name="twitter:title" content="python3 print(&quot;中文&quot;)异常">
+<meta name="twitter:description" content="python print(“中文”)直接抛出异常处理 问题现象　 在redhat7,Docker镜像中安装python3环境1&amp;gt;&amp;gt;&amp;gt; print(&amp;quot;中文&amp;quot;) 直接异常，最开始没有时间去解决，我去掉了项目中的所有print语句．这是个偷懒的做法，哈哈． 问题原因分析直接locale，查看编码，zh_CN.utf-8，没有问题1234567891011121314">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://zhoujunpeng1988.github.io/blog/2018/01/24/python-coding/"/>
+  <link rel="canonical" href="https://zhoujunpeng1988.github.io/blog/2018/09/18/python3-print-chinese-error/"/>
 
 
 
 
 
-  <title>python编码问题总结 | Jason Zhou's Blog</title>
+  <title>python3 print("中文")异常 | Jason Zhou's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhoujunpeng1988.github.io/blog/blog/2018/01/24/python-coding/">
+    <link itemprop="mainEntityOfPage" href="https://zhoujunpeng1988.github.io/blog/blog/2018/09/18/python3-print-chinese-error/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jason Zhou">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python编码问题总结</h1>
+          <h1 class="post-title" itemprop="name headline">python3 print("中文")异常</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T17:01:00+08:00">
-                2018-01-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-18T11:45:34+08:00">
+                2018-09-18
               </time>
             
 
@@ -333,8 +333,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/blog/2018/01/24/python-coding/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/blog/2018/01/24/python-coding/" itemprop="commentsCount"></span>
+                <a href="/blog/2018/09/18/python3-print-chinese-error/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/blog/2018/09/18/python3-print-chinese-error/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -362,26 +362,15 @@
       
 
       
-        <ul>
-<li><p>背景</p>
-<p>python 的编码是一个坑, 并且２.x 和３.x还不一样，总结一下，先看看平时代码中遇到的四种情况:</p>
-</li>
-<li><p>情况一</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">s = &apos;我的&apos;</span><br><span class="line">print(s)</span><br><span class="line">print(type(s))　#　python2.7: &lt;type &apos;str&apos;&gt; ,python3.5:&lt;class &apos;str&apos;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>情况二</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">s = u&apos;我的&apos;</span><br><span class="line">print(s)</span><br><span class="line">print(type(s))　#　python2.7: &lt;type &apos;unicode&apos;&gt; ,python3.5:&lt;class &apos;str&apos;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>情况三</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">from __future__ import unicode_literals</span><br><span class="line">s = &apos;我的&apos;</span><br><span class="line">print(s)</span><br><span class="line">print(type(s)) #　python2.7: &lt;type &apos;unicode&apos;&gt; ,python3.5:&lt;class &apos;str&apos;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>情况四</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">from __future__ import unicode_literals</span><br><span class="line">s = u&apos;我的&apos;</span><br><span class="line">print(s)</span><br><span class="line">print(type(s)) #　python2.7: &lt;type &apos;unicode&apos;&gt; ,python3.5:&lt;class &apos;str&apos;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>总结一下</p>
-<p>首先要明白一个问题，python3下的str 就是unicode，python2下u’我的’是unicode,’我的’.decode(‘utf-8’)是unicode．编码的时候要使用的原则是，处理前先decode成unicode ，处理后encode成相应的编码．上面的四种情况，兼容的情况下，最好使用情况三，这种情况下（from future import unicode_literals），定义的字符串都是unicode，可以统一处理．觉得第四种情况字符串前面加u有点画蛇添足了．并且情况三是兼容python2和python3的，python3 无需<code>from __future__ import unicode_literals</code>.</p>
-</li>
-</ul>
+        <p>python print(“中文”)直接抛出异常处理</p>
+<h3 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h3><p>　 在redhat7,Docker镜像中安装python3环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print(&quot;中文&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>直接异常，最开始没有时间去解决，我去掉了项目中的所有print语句．这是个偷懒的做法，哈哈．</p>
+<h3 id="问题原因分析"><a href="#问题原因分析" class="headerlink" title="问题原因分析"></a>问题原因分析</h3><p>直接locale，查看编码，zh_CN.utf-8，没有问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LANG=zh_CN.UTF-8</span><br><span class="line">LANGUAGE=zh_CN:en_US:en</span><br><span class="line">LC_CTYPE=&quot;zh_CN.UTF-8&quot;</span><br><span class="line">LC_NUMERIC=zh_CN.UTF-8</span><br><span class="line">LC_TIME=zh_CN.UTF-8</span><br><span class="line">LC_COLLATE=&quot;zh_CN.UTF-8&quot;</span><br><span class="line">LC_MONETARY=zh_CN.UTF-8</span><br><span class="line">LC_MESSAGES=&quot;zh_CN.UTF-8&quot;</span><br><span class="line">LC_PAPER=zh_CN.UTF-8</span><br><span class="line">LC_NAME=zh_CN.UTF-8</span><br><span class="line">LC_ADDRESS=zh_CN.UTF-8</span><br><span class="line">LC_TELEPHONE=zh_CN.UTF-8</span><br><span class="line">LC_MEASUREMENT=zh_CN.UTF-8</span><br><span class="line">LC_IDENTIFICATION=zh_CN.UTF-8</span><br><span class="line">LC_ALL=</span><br></pre></td></tr></table></figure></p>
+<p>Google了一圈没有直接的解决办法，有个前辈说看下linux的编码转换库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -l</span><br></pre></td></tr></table></figure></p>
+<p>果然，这台有问题的机器的编码转换很少，里面没有gb1830,gbk等<br>机智的同事跟踪了以下这个命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strace iconv -l</span><br></pre></td></tr></table></figure></p>
+<p>发现调用的gblic</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update glibc-common.x86_64</span><br></pre></td></tr></table></figure>
+<p>再执行iconv -l 就发现多了好多编码了,python3 print(“中文”)也ok了．</p>
 
       
     </div>
@@ -399,9 +388,11 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/python/" rel="tag"># python</a>
+            <a href="/blog/tags/python3/" rel="tag"># python3</a>
           
-            <a href="/blog/tags/编码/" rel="tag"># 编码</a>
+            <a href="/blog/tags/中文/" rel="tag"># 中文</a>
+          
+            <a href="/blog/tags/报错/" rel="tag"># 报错</a>
           
         </div>
       
@@ -414,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/01/23/science-internet/" rel="next" title="ubuntu科学上网">
-                <i class="fa fa-chevron-left"></i> ubuntu科学上网
+              <a href="/blog/2018/01/24/python-coding/" rel="next" title="python编码问题总结">
+                <i class="fa fa-chevron-left"></i> python编码问题总结
               </a>
             
           </div>
@@ -423,10 +414,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2018/09/18/python3-print-chinese-error/" rel="prev" title="python3 print("中文")异常">
-                python3 print("中文")异常 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -487,8 +474,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -568,6 +564,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题现象"><span class="nav-number">1.</span> <span class="nav-text">问题现象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因分析"><span class="nav-number">2.</span> <span class="nav-text">问题原因分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
