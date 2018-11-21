@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,java,jwt," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="what is jwt?JSON web Token,简称JWT，本质是一个token，是一种紧凑的URL安全方法，用于在网络通信的双方之间传递。由三步分组成1.header,2.payload,3.signature，中间用英文的句号分割成三块，１和２可以用base64.urlsafe_b64decode出来eg:1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.ZXl">
+<meta name="keywords" content="python,java,jwt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中的JWT，对应python加密解密实现">
+<meta property="og:url" content="https://cnjpz.github.io/blog/2018/11/21/jwt-encrypt-signature/index.html">
+<meta property="og:site_name" content="Jason Zhou&#39;s Blog">
+<meta property="og:description" content="what is jwt?JSON web Token,简称JWT，本质是一个token，是一种紧凑的URL安全方法，用于在网络通信的双方之间传递。由三步分组成1.header,2.payload,3.signature，中间用英文的句号分割成三块，１和２可以用base64.urlsafe_b64decode出来eg:1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.ZXl">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-21T12:56:12.179Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java中的JWT，对应python加密解密实现">
+<meta name="twitter:description" content="what is jwt?JSON web Token,简称JWT，本质是一个token，是一种紧凑的URL安全方法，用于在网络通信的双方之间传递。由三步分组成1.header,2.payload,3.signature，中间用英文的句号分割成三块，１和２可以用base64.urlsafe_b64decode出来eg:1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.ZXl">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cnjpz.github.io/blog/2018/11/21/jwt-encrypt-signature/"/>
+
+
+
+
+
+  <title>Java中的JWT，对应python加密解密实现 | Jason Zhou's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jason Zhou's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cnjpz.github.io/blog/blog/2018/11/21/jwt-encrypt-signature/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar1.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jason Zhou's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java中的JWT，对应python加密解密实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T17:59:22+08:00">
+                2018-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2018/11/21/jwt-encrypt-signature/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/blog/2018/11/21/jwt-encrypt-signature/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="what-is-jwt"><a href="#what-is-jwt" class="headerlink" title="what is jwt?"></a>what is jwt?</h3><p>JSON web Token,简称JWT，本质是一个token，是一种紧凑的URL安全方法，用于在网络通信的双方之间传递。<br>由三步分组成1.header,2.payload,3.signature，中间用英文的句号分割成三块，１和２可以用base64.urlsafe_b64decode出来<br>eg:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.ZXlKaGJHY2lPaUprYVhJaUxDSmxibU1pT2lKQk1USTRRMEpETFVoVE1qVTJJaXdpZW1sd0lqb2lSRVZHSW4wLi5CS2EyWFJmUnE2S1U5NkJnUmN6Z2lBLkhManVpa0ZsMWIxSXNoU1FoRjBUcVV3X0FiVDNhWVA5TWpER2FTZ3BYQ1A5UHVKZmZaZXZNR2E4M1JseHRBWV9ObmNFWGNCTy1CdFdxYUMyZFh5ZVpRLkxndmVzNFozRlZWd19zc2xJUXlrZFE.XOcZbbGGHG7eBxDQQducBlhG3fmt8w16dBuhAct4hmBa7rPXZUZ7EmoF3innv81d1VpGVuNzaSw0qbfDsQhScA</span><br></pre></td></tr></table></figure></p>
+<p>签名是为了校验数据的完整性，payload可以是用对称加密算法加密的，也可以是明文．</p>
+<h3 id="python中都有哪些jwt类库"><a href="#python中都有哪些jwt类库" class="headerlink" title="python中都有哪些jwt类库"></a>python中都有哪些jwt类库</h3><p>python中几个实现的类库，可以根据自己项目的实际情况选择，比如<br><a href="https://github.com/jpadilla/pyjwt，" target="_blank" rel="noopener">https://github.com/jpadilla/pyjwt，</a><br><a href="https://github.com/mpdavis/python-jose，" target="_blank" rel="noopener">https://github.com/mpdavis/python-jose，</a><br><a href="https://github.com/latchset/jwcrypto，" target="_blank" rel="noopener">https://github.com/latchset/jwcrypto，</a><br><a href="https://github.com/Demonware/jose" target="_blank" rel="noopener">https://github.com/Demonware/jose</a></p>
+<h3 id="Java中的JWT，对应python的转换"><a href="#Java中的JWT，对应python的转换" class="headerlink" title="Java中的JWT，对应python的转换"></a>Java中的JWT，对应python的转换</h3><p>之所以写这篇文章，是因为我要去解Java先加密再签名的JWT,java给出的解码例子,<br>例子中的secureJwt，signingKey，encryptionKey　是我自己构造或随机生成的，仅供我自己测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.commons.codec.binary.Base64;</span><br><span class="line">import org.jose4j.jwe.JsonWebEncryption;</span><br><span class="line">import org.jose4j.jwk.JsonWebKey;</span><br><span class="line">import org.jose4j.jws.JsonWebSignature;</span><br><span class="line">import org.jose4j.keys.AesKey;</span><br><span class="line">import java.nio.charset.StandardCharsets;</span><br><span class="line">import java.security.Key;</span><br><span class="line"></span><br><span class="line">public class jwtTest &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        //jwt格式数据内容</span><br><span class="line">        final String secureJwt = &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.ZXlKaGJHY2lPaUprYVhJaUxDSmxibU1pT2lKQk1USTRRMEpETFVoVE1qVTJJaXdpZW1sd0lqb2lSRVZHSW4wLi54RjVOblhoaDBsWkd2c2NoUFRCVWVnLnY3Sk85Y0NsR1UzY1ZDZEoxMVZwM3EtWUstWlVhMVo5Sm9lVjlwTzJXcVQ2VmFIRzNiRkFQRVNXbTczbm5TUTZDellNWFNyUVcteXdOeG5ZUWlXTVF3Lk42WGRnWFVpVDBnSzh2ZWNJaERCNEE.4BVhgvU5VvriBNkdExoKPauAIwt314i7xsVfWW9Ld23COZahlEqPWM8RrKlMWx71xP273b_x4vyAa65k3-IfZA&quot;;</span><br><span class="line">        //signingKey、encryptionKey</span><br><span class="line">        final String signingKey = &quot;Jh9OuzqX7g3PMGut6ThJ49a1YPBwV9T9pLgwKe-L_F2TyiWZcSfjZBEY5HrtmZcfToAtNYtIkZ7-QwMsngcSow&quot;;</span><br><span class="line">        final String encryptionKey = &quot;e6H96DIRrl2g8xJypTBj9RS9J2kS5nisrIAeOm-IuCo&quot;;</span><br><span class="line">        final Key key = new AesKey(signingKey.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">        final JsonWebSignature jws = new JsonWebSignature();</span><br><span class="line">        jws.setCompactSerialization(secureJwt);</span><br><span class="line">        jws.setKey(key);</span><br><span class="line">        if (!jws.verifySignature())&#123;</span><br><span class="line">            throw new Exception(&quot;JWT verification failed&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        final byte[] decodedBytes = Base64.decodeBase64(jws.getEncodedPayload().getBytes(StandardCharsets.UTF_8));</span><br><span class="line">        final String decodedPayload = new String(decodedBytes, StandardCharsets.UTF_8);</span><br><span class="line">        final JsonWebEncryption jwe = new JsonWebEncryption();</span><br><span class="line">        final JsonWebKey jsonWebKey = JsonWebKey.Factory</span><br><span class="line">                .newJwk(&quot;\n&quot; + &quot;&#123;\&quot;kty\&quot;:\&quot;oct\&quot;,\n&quot; + &quot; \&quot;k\&quot;:\&quot;&quot; + encryptionKey + &quot;\&quot;\n&quot; + &quot;&#125;&quot;);</span><br><span class="line">        jwe.setCompactSerialization(decodedPayload);</span><br><span class="line">        jwe.setKey(new AesKey(jsonWebKey.getKey().getEncoded()));</span><br><span class="line">        System.out.println(jwe.getPlaintextString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br>说下我的解决历程，先是google了下，觉得对应的python库应该是pyjwt，尝试了下发现不可以.<br>我又找到了jwcrypto库，这个库可以把解密的部分完成，但是签名怎么也校验不过去，我debug了java 和python的例子，<br>他们的签名实现的不一样,最后我又找到了jose库，来完成签名的部分，这些不常用的库真是坑人，代码不麻烦，<br>麻烦的是库的选择，花了不少时间．．．我是基于python3.6, 把jwt的加密+签名，验证签名+解密都实现了,直接上代码．<br></p>
+
+<p>pip install<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JWCrypto==0.5.0</span><br><span class="line">python-jose==3.0.1</span><br></pre></td></tr></table></figure></p>
+<p>code<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">from jwcrypto import jwk, jwe</span><br><span class="line">from jwcrypto.common import json_encode, json_decode</span><br><span class="line">from jose import jws</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line"># SIGNINGKEY = jwk.JWK.generate(kty=&apos;oct&apos;, size=512).get_op_key()</span><br><span class="line"># ENCRYPTIONKEY = jwk.JWK.generate(kty=&apos;oct&apos;, size=256).get_op_key()</span><br><span class="line">#　下面是用上面的方法生成的签名key,加密key</span><br><span class="line">SIGNINGKEY = &quot;Jh9OuzqX7g3PMGut6ThJ49a1YPBwV9T9pLgwKe-L_F2TyiWZcSfjZBEY5HrtmZcfToAtNYtIkZ7-QwMsngcSow&quot;</span><br><span class="line">ENCRYPTIONKEY = &quot;e6H96DIRrl2g8xJypTBj9RS9J2kS5nisrIAeOm-IuCo&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class JWT_ENCRYPT:</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.sign_key = SIGNINGKEY</span><br><span class="line">        self.enc_key = ENCRYPTIONKEY</span><br><span class="line"></span><br><span class="line">    def jwt_encode(self, payload, protected=&#123;&quot;zip&quot;: &quot;DEF&quot;, &quot;alg&quot;: &quot;dir&quot;, &quot;enc&quot;: &quot;A128CBC-HS256&quot;&#125;, sign_alg=&quot;HS512&quot;):</span><br><span class="line">        encrypted_payload = self._encrypt_payload(payload, protected)</span><br><span class="line">        return self._sign(encrypted_payload.encode(&quot;utf-8&quot;), sign_alg)</span><br><span class="line"></span><br><span class="line">    def jwt_decode(self, token):</span><br><span class="line">        e_payload = self._verify_signature(token)</span><br><span class="line">        payload = self._decode_encrypted_payload(e_payload.decode(&quot;utf-8&quot;))</span><br><span class="line">        return json_decode(payload)</span><br><span class="line"></span><br><span class="line">    def _sign(self, e_payload, alg):</span><br><span class="line">        return jws.sign(e_payload, self.sign_key, algorithm=alg)</span><br><span class="line"></span><br><span class="line">    def _verify_signature(self, token):</span><br><span class="line">        header = token.split(&quot;.&quot;)[0]</span><br><span class="line">        alg = json_decode(base64.urlsafe_b64decode(header))[&quot;alg&quot;]</span><br><span class="line">        return jws.verify(token, self.sign_key, algorithms=[alg])</span><br><span class="line"></span><br><span class="line">    def _encrypt_payload(self, payload, protected):</span><br><span class="line">        payload = json_encode(payload)</span><br><span class="line">        expkey = &#123;&quot;k&quot;: &quot;&#123;0&#125;&quot;.format(self.enc_key), &quot;kty&quot;: &quot;oct&quot;&#125;</span><br><span class="line">        key = jwk.JWK(**expkey)</span><br><span class="line">        jweobj = jwe.JWE(plaintext=payload, protected=protected)</span><br><span class="line">        jweobj.add_recipient(key)</span><br><span class="line">        e_payload = jweobj.serialize(compact=True)</span><br><span class="line">        return e_payload</span><br><span class="line"></span><br><span class="line">    def _decode_encrypted_payload(self, encrypted_payload):</span><br><span class="line">        expkey = &#123;&quot;k&quot;: &quot;&#123;0&#125;&quot;.format(self.enc_key), &quot;kty&quot;: &quot;oct&quot;&#125;</span><br><span class="line">        key = jwk.JWK(**expkey)</span><br><span class="line">        payloadlist = encrypted_payload.rsplit(&quot;.&quot;)</span><br><span class="line">        d_enc = &#123;</span><br><span class="line">            &quot;protected&quot;: &quot;&#123;&#125;&quot;.format(payloadlist[0]),</span><br><span class="line">            &quot;encrypted_key&quot;: &quot;&#123;&#125;&quot;.format(payloadlist[1]),</span><br><span class="line">            &quot;iv&quot;: &quot;&#123;&#125;&quot;.format(payloadlist[2]),</span><br><span class="line">            &quot;ciphertext&quot;: &quot;&#123;&#125;&quot;.format(payloadlist[3]),</span><br><span class="line">            &quot;tag&quot;: &quot;&#123;&#125;&quot;.format(payloadlist[4])</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        jweobj = jwe.JWE()</span><br><span class="line">        jweobj.deserialize(json_encode(d_enc))</span><br><span class="line">        jweobj.decrypt(key)</span><br><span class="line">        payload = jweobj.payload</span><br><span class="line">        return payload</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    payload1 = &#123;&quot;username&quot;: &quot;cnjpz&quot;, &quot;isadmin&quot;: 1, &quot;exp&quot;: 1542795503&#125;</span><br><span class="line">    token1 = JWT_ENCRYPT().jwt_encode(payload1)</span><br><span class="line">    print(token1)</span><br><span class="line">    payload1 = JWT_ENCRYPT().jwt_decode(token1)</span><br><span class="line">    print(payload1)</span><br></pre></td></tr></table></figure></p>
+<p>END</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/python/" rel="tag"># python</a>
+          
+            <a href="/blog/tags/java/" rel="tag"># java</a>
+          
+            <a href="/blog/tags/jwt/" rel="tag"># jwt</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/09/18/python3-print-chinese-error/" rel="next" title="python3 print("中文")异常">
+                <i class="fa fa-chevron-left"></i> python3 print("中文")异常
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/blog/images/avatar1.gif"
+                alt="Jason Zhou" />
+            
+              <p class="site-author-name" itemprop="name">Jason Zhou</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cnjpz" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhoujunpeng1988@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#what-is-jwt"><span class="nav-number">1.</span> <span class="nav-text">what is jwt?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python中都有哪些jwt类库"><span class="nav-number">2.</span> <span class="nav-text">python中都有哪些jwt类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java中的JWT，对应python的转换"><span class="nav-number">3.</span> <span class="nav-text">Java中的JWT，对应python的转换</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jason Zhou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
