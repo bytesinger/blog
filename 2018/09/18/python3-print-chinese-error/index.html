@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Jason Zhou&#39;s Blog">
 <meta property="og:description" content="python print(“中文”)直接抛出异常处理 问题现象　 在redhat7,Docker镜像中安装python3环境1&amp;gt;&amp;gt;&amp;gt; print(&amp;quot;中文&amp;quot;) 直接异常，最开始没有时间去解决，我去掉了项目中的所有print语句．这是个偷懒的做法，哈哈． 问题原因分析直接locale，查看编码，zh_CN.utf-8，没有问题1234567891011121314">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-20T13:56:08.937Z">
+<meta property="og:updated_time" content="2018-11-23T03:09:01.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python3 print(&quot;中文&quot;)异常">
 <meta name="twitter:description" content="python print(“中文”)直接抛出异常处理 问题现象　 在redhat7,Docker镜像中安装python3环境1&amp;gt;&amp;gt;&amp;gt; print(&amp;quot;中文&amp;quot;) 直接异常，最开始没有时间去解决，我去掉了项目中的所有print语句．这是个偷懒的做法，哈哈． 问题原因分析直接locale，查看编码，zh_CN.utf-8，没有问题1234567891011121314">
@@ -369,7 +369,7 @@
 <p>Google了一圈没有直接的解决办法，有个前辈说看下linux的编码转换库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -l</span><br></pre></td></tr></table></figure></p>
 <p>果然，这台有问题的机器的编码转换很少，里面没有gb1830,gbk等<br>机智的同事跟踪了以下这个命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strace iconv -l</span><br></pre></td></tr></table></figure></p>
 <p>发现调用的gblic</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update glibc-common.x86_64</span><br></pre></td></tr></table></figure>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum reinstall glibc-common.x86_64</span><br></pre></td></tr></table></figure>
 <p>再执行iconv -l 就发现多了好多编码了,python3 print(“中文”)也ok了．</p>
 
       
