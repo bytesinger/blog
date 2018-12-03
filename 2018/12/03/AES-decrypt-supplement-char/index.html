@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Python, AI" />
+  <meta name="keywords" content="python,AES,解码,填充字符," />
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tag Cloud">
-<meta property="og:url" content="https://cnjpz.github.io/blog/tags/index.html">
+<meta name="description" content="Python3 AES解码后填充字符问题处理 先看看下面的代码12345def decrypt(self, text):	decodedtext = base64.b64decode(text)	cryptor = AES.new(your_key, AES.MODE_CBC, your_iv)	plain_text = cryptor.decrypt(decodedtext)	return pl">
+<meta name="keywords" content="python,AES,解码,填充字符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AES-decrypt-supplement-char">
+<meta property="og:url" content="https://cnjpz.github.io/blog/2018/12/03/AES-decrypt-supplement-char/index.html">
 <meta property="og:site_name" content="Jason Zhou&#39;s Blog">
+<meta property="og:description" content="Python3 AES解码后填充字符问题处理 先看看下面的代码12345def decrypt(self, text):	decodedtext = base64.b64decode(text)	cryptor = AES.new(your_key, AES.MODE_CBC, your_iv)	plain_text = cryptor.decrypt(decodedtext)	return pl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-24T07:41:36.995Z">
+<meta property="og:updated_time" content="2018-12-03T10:37:58.349Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tag Cloud">
+<meta name="twitter:title" content="AES-decrypt-supplement-char">
+<meta name="twitter:description" content="Python3 AES解码后填充字符问题处理 先看看下面的代码12345def decrypt(self, text):	decodedtext = base64.b64decode(text)	cryptor = AES.new(your_key, AES.MODE_CBC, your_iv)	plain_text = cryptor.decrypt(decodedtext)	return pl">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://cnjpz.github.io/blog/tags/"/>
+  <link rel="canonical" href="https://cnjpz.github.io/blog/2018/12/03/AES-decrypt-supplement-char/"/>
 
 
 
 
 
-  <title>Tag Cloud | Jason Zhou's Blog</title>
+  <title>AES-decrypt-supplement-char | Jason Zhou's Blog</title>
   
 
 
@@ -247,40 +251,187 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cnjpz.github.io/blog/blog/2018/12/03/AES-decrypt-supplement-char/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar1.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jason Zhou's Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">Tag Cloud</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 12 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/blog/tags/AES/" style="font-size: 12px; color: #ccc">AES</a> <a href="/blog/tags/java/" style="font-size: 12px; color: #ccc">java</a> <a href="/blog/tags/jwt/" style="font-size: 12px; color: #ccc">jwt</a> <a href="/blog/tags/python/" style="font-size: 30px; color: #111">python</a> <a href="/blog/tags/python3/" style="font-size: 12px; color: #ccc">python3</a> <a href="/blog/tags/ubuntu/" style="font-size: 12px; color: #ccc">ubuntu</a> <a href="/blog/tags/中文/" style="font-size: 12px; color: #ccc">中文</a> <a href="/blog/tags/填充字符/" style="font-size: 12px; color: #ccc">填充字符</a> <a href="/blog/tags/报错/" style="font-size: 12px; color: #ccc">报错</a> <a href="/blog/tags/科学上网/" style="font-size: 12px; color: #ccc">科学上网</a> <a href="/blog/tags/编码/" style="font-size: 12px; color: #ccc">编码</a> <a href="/blog/tags/解码/" style="font-size: 12px; color: #ccc">解码</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">AES-decrypt-supplement-char</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T18:08:18+08:00">
+                2018-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2018/12/03/AES-decrypt-supplement-char/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/blog/2018/12/03/AES-decrypt-supplement-char/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>Python3 AES解码后填充字符问题处理</p>
+<h3 id="先看看下面的代码"><a href="#先看看下面的代码" class="headerlink" title="先看看下面的代码"></a>先看看下面的代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def decrypt(self, text):</span><br><span class="line">	decodedtext = base64.b64decode(text)</span><br><span class="line">	cryptor = AES.new(your_key, AES.MODE_CBC, your_iv)</span><br><span class="line">	plain_text = cryptor.decrypt(decodedtext)</span><br><span class="line">	return plain_text.decode(&quot;utf-8&quot;).strip()</span><br></pre></td></tr></table></figure>
+<p>这段代码在解析Java AES加密的问题时，经常出现类似下面的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CAB-197-jxr1kHoYVAcg-mQWVxdA-cdShi8UpU1xjz3Fn8itgFUb5cjEp3nUULP7-j17yDXfGZ4VM_5_3_centos\x08\x08\x08\x08\x08\x08\x08\x08</span><br></pre></td></tr></table></figure></p>
+<p>后面页可能会出现<font color="#FF4040" size="4">\x07</font>，<font color="#FF4040" size="4">\x08</font>等字符．<br>原因是加密时字符一般是16bytes的倍数，如果不够就用这些字符fullfill，解码后为了和其它语言保持一致，最好手动去掉填充字符．</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>知道上面的问题后解决办法就变得简单了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plain_text = plain_text[:-plain_text[-1]]</span><br></pre></td></tr></table></figure></p>
+<p>参照了stackoverflow的做法 <a href="https://stackoverflow.com/questions/14179784/python-encrypting-with-pycrypto-aes/14205319" target="_blank" rel="noopener">https://stackoverflow.com/questions/14179784/python-encrypting-with-pycrypto-aes/14205319</a></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/python/" rel="tag"># python</a>
+          
+            <a href="/blog/tags/AES/" rel="tag"># AES</a>
+          
+            <a href="/blog/tags/解码/" rel="tag"># 解码</a>
+          
+            <a href="/blog/tags/填充字符/" rel="tag"># 填充字符</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/11/21/jwt-encrypt-signature/" rel="next" title="Java中的JWT，对应python加密解密实现">
+                <i class="fa fa-chevron-left"></i> Java中的JWT，对应python加密解密实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -322,8 +473,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -403,6 +563,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#先看看下面的代码"><span class="nav-number">1.</span> <span class="nav-text">先看看下面的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">2.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

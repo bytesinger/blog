@@ -259,6 +259,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cnjpz.github.io/blog/blog/2018/12/03/AES-decrypt-supplement-char/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jason Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar1.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jason Zhou's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/12/03/AES-decrypt-supplement-char/" itemprop="url">AES-decrypt-supplement-char</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T18:08:18+08:00">
+                2018-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Python3 AES解码后填充字符问题处理</p>
+<h3 id="先看看下面的代码"><a href="#先看看下面的代码" class="headerlink" title="先看看下面的代码"></a>先看看下面的代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def decrypt(self, text):</span><br><span class="line">	decodedtext = base64.b64decode(text)</span><br><span class="line">	cryptor = AES.new(your_key, AES.MODE_CBC, your_iv)</span><br><span class="line">	plain_text = cryptor.decrypt(decodedtext)</span><br><span class="line">	return plain_text.decode(&quot;utf-8&quot;).strip()</span><br></pre></td></tr></table></figure>
+<p>这段代码在解析Java AES加密的问题时，经常出现类似下面的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CAB-197-jxr1kHoYVAcg-mQWVxdA-cdShi8UpU1xjz3Fn8itgFUb5cjEp3nUULP7-j17yDXfGZ4VM_5_3_centos\x08\x08\x08\x08\x08\x08\x08\x08</span><br></pre></td></tr></table></figure></p>
+<p>后面页可能会出现<font color="#FF4040" size="4">\x07</font>，<font color="#FF4040" size="4">\x08</font>等字符．<br>原因是加密时字符一般是16bytes的倍数，如果不够就用这些字符fullfill，解码后为了和其它语言保持一致，最好手动去掉填充字符．</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>知道上面的问题后解决办法就变得简单了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plain_text = plain_text[:-plain_text[-1]]</span><br></pre></td></tr></table></figure></p>
+<p>参照了stackoverflow的做法 <a href="https://stackoverflow.com/questions/14179784/python-encrypting-with-pycrypto-aes/14205319" target="_blank" rel="noopener">https://stackoverflow.com/questions/14179784/python-encrypting-with-pycrypto-aes/14205319</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cnjpz.github.io/blog/blog/2018/11/21/jwt-encrypt-signature/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1040,7 +1187,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1062,7 +1209,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
